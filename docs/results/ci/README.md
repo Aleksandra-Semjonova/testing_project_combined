@@ -1,7 +1,7 @@
 # CI Test Results
 
 ## Workflow run
-https://github.com/DariaHalchenko/testing_project_combined/actions/runs/19712884656
+https://github.com/DariaHalchenko/testing_project_combined/actions/runs/19714651901
 
 ## Artifacts
 - Pytest: pytest-logid
