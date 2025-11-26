@@ -3,7 +3,7 @@
 # Testiplaan – Task 2: Projekti seadistus ja avalikud API-d
 
 **Projekti nimi:** API kvaliteedikontroll   
-**Autorid ja kuupäev:** Daria, 24.11.2025  
+**Autorid ja kuupäev:** Daria, 26.11.2025  
 **Versioon:** 1.0
 
 ---
@@ -49,7 +49,6 @@
 ---
 
 ## 6. Testkeskkonnad ja andmed
-- OS: Windows 11
 - Python: 3.13
 - Testandmed: avalikud API-d (`JSONPlaceholder`, `Rick & Morty`)
 - Mock-serverid võivad kasutada vigade simuleerimiseks katkiseid URL-e
@@ -71,9 +70,10 @@
 - Edukriteerium: kõik kriitilised testid (`/api/koond` ja 502 error handling) läbivad
 
 
-# Testplaan – GA4 
+# Testplaan – Task 3: GA4 
 
 ## 1. Sissejuhatus
+
 **Projekti nimi:** Kvaliteedijälg – A/B katse  
 
 **Eesmärk:** Kontrollige, et A/B-testi sündmused (`variant_vaade` ja `variant_vahetus`) saadetakse korrektselt Google Analyticsisse.
@@ -100,7 +100,7 @@
 |----------------|------------|
 | GA4 skript on olemas | `index.html` sisaldab `<script src="https://www.googletagmanager.com/gtag/js?...">` |
 | `variant_vaade` sündmus | Event saadetakse Network → collect, sisaldab `variant`, `sessioonId`, `katsestaadium` |
-| `variant_vahetus` sündmus | Event saadetakse pärast nuppu "Vaheta varianti" vajutamist | ✅ |
+| `variant_vahetus` sündmus | Event saadetakse pärast nuppu "Vaheta varianti" vajutamist |
 | Ekraanipildid | Võrgupäringute ja console.log’i kuvatud sündmused on salvestatud `docs/results/analytics/` |
 
 ---
@@ -135,9 +135,9 @@
 ## 7. Ajajoon ja vastutajad
 | Tegevus | Vastutaja | Aeg |
 |----------|---------------|-------|
-| Sündmuste testimine (`variant_vaade`, `variant_vahetus`) | Daria | 10 мин |
-| Network-paneeli ja DebugView kontrollimine | Daria | 5 мин |
-| Ekraanipiltide kogumine ja aruande koostamine | Daria | 5 мин |
+| Sündmuste testimine (`variant_vaade`, `variant_vahetus`) | Daria | 10 min |
+| Network-paneeli ja DebugView kontrollimine | Daria | 5 min |
+| Ekraanipiltide kogumine ja aruande koostamine | Daria | 5 min |
 
 ---
 
@@ -150,3 +150,84 @@
 
 ---
 
+# Testplan – Task 4: Pytest 
+
+## 1. Sissejuhatus
+
+**Projekti nimi:** Kvaliteedijälg – FastAPI koondteenuse backend  
+
+**Eesmärk:** tagada FastAPI-tagapõhja stabiilne testimine Pytesti abil
+
+---
+
+## 2. Ulatus
+**Kaasatud moodulid:**  
+- Backend (`backend/main.py`)  
+  - `/status`  
+  - `/api/koond`  
+  - `hanki_andmed()`  
+- Testid kaustas `tests-python/`  
+- Logi fail `docs/results/pytest/pytest.log`
+
+---
+
+## 3. Nõuded ja aktsepteerimiskriteeriumid
+
+### Funktsionaalsed nõuded
+1. `/status` tagastab oleku `"aktiivne"` ja metainfo.  
+2. `/api/koond` ühendab kaks välisallikat ja tagastab õige skeemiga JSON.  
+3. Välise API tõrge põhjustab vastuse koodiga **502**.  
+4. Logid salvestatakse Pytesti jooksutamisel.
+
+### Kontrollpunktid
+
+| Kontrollpunkt | Kriteerium |
+|----------------|------------|
+| TestClient töötab | `client.get()` tagastab 200 / 502 |
+| Vea käsitlus | `hanki_andmed()` viskab vea ja `/api/koond` → 502 |
+| Skeemi kontroll | `postitus.pealkiri`, `tegelane.nimi`, `allikad` olemas |
+| Logi olemasolu | `docs/results/pytest/pytest.log` on loodud |
+
+---
+
+## 4. Riskid ja maandus
+| Kirjeldus | Mõju | Tõenäosus | Maandus |
+|-----------|-------|------------|---------|
+| Välis-API ei vasta | Test kukub läbi | Kõrge | Kasutada monkeypatch mokitamiseks |
+| Vale skeem backendis | Väline API muutub | Keskmine | Skeemi testid püüavad vea kinni |
+| Pytest ei leia mooduleid | Arenduskeskkonna viga | Keskmine | Kontrollida `PYTHONPATH` ja imports |
+| Logi ei salvestu | Testplaani rikkumine | Madal | Suunata pytesti väljund logifaili |
+
+---
+
+## 5. Meetodid ja tööriistad
+
+- Pytest — unit и integration testid
+- FastAPI TestClient — endpointide testimine
+- monkeypatch — väliste API-de imitatsioon
+- responses (valikuline) — HTTP-vastuste salvestamine
+
+---
+
+## 6. Testkeskkonnad ja andmed
+
+- Python: 3.10+ (HTTP server) 
+- Käivitamise käsk: `pytest tests-python -v`
+
+---
+
+## 7. Ajajoon ja vastutajad
+| Tegevus | Vastutaja | Aeg |
+|----------|---------------|-------|
+| Testide kirjutamine | Daria | 10 -15 min |
+| Pytest käivitamine + logi salvestamine | Daria | 5 min |
+
+---
+
+## 8. Raporteerimine
+
+- Tulemused salvestatakse: `docs/results/pytest/pytest.log`
+- kõik testid on rohelised
+- logi on loodud
+
+---
