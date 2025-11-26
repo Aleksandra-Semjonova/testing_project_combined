@@ -402,3 +402,88 @@
 
 - Kontrollitakse, et mõlemad variandid ilmuvad GA sündmustes  
 
+---
+
+# Testplan – Task 7: Integratsioonitestid
+
+## 1. Sissejuhatus
+
+**Projekti nimi:** Kvaliteedijälg – FastAPI backend integratsioonitestid  
+
+**Eesmärk:** tagada, et backend, välised API-d ja logimine töötavad koos ning integratsioonitestid toimivad ilma päris teenuseid tabamata.
+
+---
+
+## 2. Ulatus
+
+**Kaasatud moodulid:**  
+- Backend (`backend/main.py`)  
+  - `/api/koond` endpoint  
+- Testid kaustas tests-integration/
+- Logi fail: `docs/results/integration/integration.log`
+
+---
+
+## 3. Nõuded ja aktsepteerimiskriteeriumid
+
+### Funktsionaalsed nõuded
+
+1. Endpoint /api/koond tagastab eduka vastuse välisteenuste korrektsel töötamisel.
+2. Endpoint tagastab HTTP 502 ja õige detaili objekti, kui mõni väline teenus ei tööta.
+3. Loogikates fikseeritakse sündmusi nii edukate kui ka ebaõnnestunud päringute jaoks.
+
+| Kontrollpunkt         | Kriteerium                                                |
+| --------------------- | --------------------------------------------------------- |
+| Edukas API | `/api/koond` tagastab 200 ja õige keha |
+| Välise API viga | `/api/koond` tagastab 502 ja detail-sõnumi |
+| Logimine | Kõik sissekanded salvestatakse `integration.log` |
+
+---
+
+## 4. Riskid ja maandus
+
+| Kirjeldus                    | Mõju                 | Tõenäosus | Maandus                                     |
+| ---------------------------- | -------------------- | --------- | ------------------------------------------- |
+| Välised teenused ei reageeri | Testid ebaõnnestuvad | Madal     | Kasutada `responses` mokke                  |
+| Logi faili ei kirjutata      | Testplaani rikkumine | Madal     | Kontrollida faili teed ja UTF-8 kodeeringut |
+| Endpoint muutub              | Testid ebaõnnestuvad | Keskmine  | Testide hooldus ja uuendamine               |
+
+---
+
+## 5. Meetodid ja tööriistad
+
+- FastAPI TestClient integratsioonitestide jaoks
+- `pytest` testide käivitamiseks
+- `responses` väliste API-de mockimiseks
+- Logide salvestamine failile: `docs/results/integration/integration.log`
+
+---
+
+## 6. Testkeskkonnad ja andmed
+
+- Python 3.12+
+- `.\.venv\Scripts\Activate.ps1` 
+- `pytest tests-integration -v`
+- Logide salvestamine: `docs/results/integration/integration.log`
+
+---
+
+## 7. Ajajoon ja vastutajad
+
+| Tegevus                                    | Vastutaja | Aeg       |
+| ------------------------------------------ | --------- | --------- |
+| Testide kirjutamine                        | Daria     | 10–15 min |
+| Testide käivitamine ja logide salvestamine | Daria     | 5 min     |
+
+
+---
+
+## 8. Raporteerimine
+
+- Tulemused salvestatakse: `docs/results/integration/integration.log`
+- Kõik testid peavad olema rohelised (PASS)
+- Logis on kirjed edukatest ja ebaõnnestunud API päringutest
+
+---
+
+
