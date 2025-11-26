@@ -492,5 +492,75 @@
 
 ---
 
+# Testplan – Task 9: Locust koormustest
 
+## 1. Sissejuhatus
 
+**Projekti nimi:** Kvaliteedijälg – backend koormustestimine  
+**Autorid ja kuupäev:** Daria, 26.11.2025  
+
+**Eesmärk:** Kontrollida, kuidas backend talub 20–50 samaaegset kasutajat ja kas API latentsus jääb lubatud piiridesse. Genereerida CSV ja HTML aruanded dokumentatsiooni jaoks.
+
+## 2. Ulatus
+
+**Kaasatud komponendid:**
+- Backend (`backend/`)
+- Koormustest skriptid (`tests-performance-locust/locustfile.py`)
+- Aruanded:
+  - CSV: `docs/results/locust/koormus_*.csv`
+  - HTML: `docs/results/locust/koormus.html`
+  - Ekraanipildid: `docs/results/locust/koormus.md`
+
+## 3. Nõuded ja aktsepteerimiskriteeriumid
+
+| Kontrollpunkt | Kriteerium |
+|---------------|------------|
+| Backend töötab | `uvicorn backend.main:rakendus --reload` |
+| Locust test | 50 kasutajat, 5 kasutajat/sek, kestus 5 min |
+| Aruannete genereerimine | CSV ja HTML `docs/results/locust/` kaustas |
+
+**Edukriteeriumid:**
+- Test läbitakse ilma kriitiliste vigadeta  
+- CSV ja HTML aruanded on õigesti genereeritud  
+- Ekraanipildid on lisatud 
+
+## 4. Riskid ja maandus
+
+| Risk | Mõju | Tõenäosus | Maandus |
+|------|------|-----------|---------|
+| Backend ei tööta | Test ebaõnnestub | Keskmine | Kontrollida `uvicorn` käivitamist |
+| Locust pole paigaldatud | Test ebaõnnestub | Madal | `pip install locust` `.venv` keskkonnas |
+| Aruande failid ei genereeru | Dokumentatsioon puudulik | Madal | Kontrollida `--csv` ja `--html` teid |
+
+## 5. Meetodid ja tööriistad
+
+- **Locust** – koormustestimine  
+- **Uvicorn** – backend server  
+- **Excel / LibreOffice / Google Sheets** – CSV vaatamiseks  
+- **Brauser** – HTML aruande vaatamiseks ja ekraanipiltide tegemiseks  
+
+## 6. Testkeskkond ja eeldused
+
+- Windows või macOS/Linux  
+- Python virtuaalne keskkond `.venv`  
+- Paigaldatud backend sõltuvused  
+- Testskriptid `tests-performance-locust/`  
+- Aruandekataloog: `docs/results/locust/`
+
+## 7. Ajajoon ja vastutajad
+
+| Tegevus | Vastutaja | Aeg |
+|---------|-----------|-----|
+| Backend kontroll | Daria | 2 min |
+| Locust koormustesti käivitamine | Daria | 8 min |
+| Ekraanipiltide tegemine ja lisamine | Daria | 5 min |
+
+## 8. Raporteerimine
+
+- CSV aruanded: `koormus_stats.csv`, `koormus_failures.csv` jne  
+- HTML aruanne: `koormus.html`  
+- Ekraanipildid salvestatakse `docs/results/locust/`
+- Testi edukus: 
+  - Backend on vastu pidanud kõigile kasutajatele;
+  - Aruanded on genereeritud; 
+  - Screenshotid on lisatud;
