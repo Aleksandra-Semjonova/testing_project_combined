@@ -29,7 +29,7 @@
 | `/status` tagastab `200 OK` | GET /status | {"olek": "aktiivne", "allikas": "Kvaliteedijälg API"} |
 | `/api/koond` koondab mõlema API andmed | GET /api/koond | JSON sisaldab `postitus`, `tegelane`, `allikad`, `paastikuAeg` |
 | Logimine | vaata serveri logisid | INFO logid väliste API päringute ja koondamise kohta |
-| Viga välises API-s | muuda URL katkise või eksisteerimata | HTTP 502 koos `detail`: sonum, allikad, pohjus |
+| Viga välises API-s | muuda URL katkise või eksisteerimata | HTTP 502 koos `detail`: sonum, siht, pohjus |
 
 ---
 
